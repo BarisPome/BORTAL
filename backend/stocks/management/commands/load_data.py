@@ -1,38 +1,38 @@
 import os
 from django.core.management.base import BaseCommand
-from stocks.models import Stock, Index
+from stocks.models import Stock
 from django.conf import settings
 import pandas as pd
 
 class Command(BaseCommand):
-    help = 'Load indices and stocks from Excel files'
+    help = "Load stocks from 'Şirketler.csv' in the data folder (only ticker and name)"
 
     def handle(self, *args, **kwargs):
         data_path = os.path.join(settings.BASE_DIR, 'data')
+        csv_path = os.path.join(data_path, 'Şirketler.csv')
 
-        # Load indices.xlsx
-        indices_path = os.path.join(data_path, 'indices.xlsx')
-        indices_df = pd.read_excel(indices_path)
+        try:
+            df = pd.read_csv(csv_path, header=None)
+            df.columns = ['ticker', 'name']
+        except FileNotFoundError:
+            self.stderr.write("❌ Error: 'Şirketler.csv' not found in /data directory.")
+            return
+        except Exception as e:
+            self.stderr.write(f"❌ Error reading CSV: {e}")
+            return
 
-        for name in indices_df['name'].dropna():
-            index, created = Index.objects.get_or_create(name=name.strip())
-            if created:
-                self.stdout.write(self.style.SUCCESS(f'Created index: {name}'))
+        for _, row in df.iterrows():
+            symbol = str(row['ticker']).strip()
+            name = str(row['name']).strip()
 
-        # Load stocks.xlsx
-        stocks_path = os.path.join(data_path, 'stocks.xlsx')
-        stocks_df = pd.read_excel(stocks_path)
+            stock, created = Stock.objects.get_or_create(
+                symbol=symbol,
+                defaults={'name': name}
+            )
 
-        for _, row in stocks_df.iterrows():
-            symbol = row['symbol'].strip()
-            name = row['name'].strip()
-            index_names = row['indices'].split('|')
-
-            stock, created = Stock.objects.get_or_create(symbol=symbol, name=name)
-            for index_name in index_names:
-                index_name = index_name.strip()
-                index = Index.objects.get(name=index_name)
-                stock.indices.add(index)
-
-            stock.save()
-            self.stdout.write(self.style.SUCCESS(f'Added stock: {symbol}'))
+            if not created:
+                stock.name = name
+                stock.save()
+                self.stdout.write(f'🔄 Updated: {symbol} - {name}')
+            else:
+                self.stdout.write(self.style.SUCCESS(f'✅ Created: {symbol} - {name}'))

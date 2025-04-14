@@ -1,19 +1,18 @@
-import { useEffect, useState } from 'react';
+import { BrowserRouter as Router, Routes, Route } from 'react-router-dom';
+import IndexList from './components/IndexList';
+import IndexDetail from './components/IndexDetail';
+import './App.css';
 
 function App() {
-  const [msg, setMsg] = useState("Loading...");
-
-  useEffect(() => {
-    fetch("http://127.0.0.1:8000/api/hello/")
-      .then((res) => res.json())
-      .then((data) => setMsg(data.message))
-      .catch((err) => setMsg("Error connecting to backend"));
-  }, []);
-
   return (
-    <div style={{ padding: 20 }}>
-      <h1>{msg}</h1>
-    </div>
+    <Router>
+      <div className="app">
+        <Routes>
+          <Route path="/" element={<IndexList />} />
+          <Route path="/index/:name" element={<IndexDetail />} />
+        </Routes>
+      </div>
+    </Router>
   );
 }
 

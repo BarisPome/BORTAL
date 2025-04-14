@@ -1,6 +1,10 @@
+# stocks/admin.py
 from django.contrib import admin
-from django.contrib import admin
-from .models import Stock, Index
+from .models import Stock
 
-admin.site.register(Stock)
-admin.site.register(Index)
+@admin.register(Stock)
+class StockAdmin(admin.ModelAdmin):
+    list_display = ['symbol', 'name']
+    search_fields = ['symbol', 'name']
+
+

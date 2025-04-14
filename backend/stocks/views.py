@@ -1,9 +1,24 @@
-from django.shortcuts import render
+from rest_framework import generics
+from .models import Stock, Index
+from .serializers import StockSerializer, IndexSerializer, IndexDetailSerializer
 
-from django.http import JsonResponse
+# API views
+class IndexListAPIView(generics.ListAPIView):
+    queryset = Index.objects.all()
+    serializer_class = IndexSerializer
 
-def hello(request):
-    return JsonResponse({"message": "Hello from Django!"})
+class IndexDetailAPIView(generics.RetrieveAPIView):
+    queryset = Index.objects.all()
+    serializer_class = IndexDetailSerializer
+    lookup_field = 'name'
 
-
-# Create your views here.
+class StockListAPIView(generics.ListAPIView):
+    queryset = Stock.objects.all()
+    serializer_class = StockSerializer
+    
+    def get_queryset(self):
+        queryset = Stock.objects.all()
+        index_name = self.request.query_params.get('index', None)
+        if index_name:
+            queryset = queryset.filter(indices__name=index_name)
+        return queryset
