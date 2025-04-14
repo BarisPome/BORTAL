@@ -1,0 +1,67 @@
+@import '../variables.css';
+
+/* Table styles */
+.stocks-table-container {
+  overflow-x: auto;
+}
+
+.stocks-table {
+  width: 100%;
+  border-collapse: collapse;
+  background-color: var(--color-background-card);
+  border-radius: var(--border-radius-medium);
+  overflow: hidden;
+  box-shadow: var(--shadow-small);
+}
+
+.stocks-table th,
+.stocks-table td {
+  padding: var(--spacing-medium);
+  text-align: left;
+}
+
+.stocks-table th {
+  background-color: var(--color-secondary);
+  color: white;
+  font-weight: 500;
+}
+
+.stocks-table tr:nth-child(even) {
+  background-color: var(--color-background-light);
+}
+
+.stocks-table tr:hover {
+  background-color: var(--color-background-hover);
+}
+
+/* Filter controls */
+.filters-container {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  margin: var(--spacing-large) 0;
+}
+
+.search-container {
+  flex: 1;
+  max-width: 400px;
+}
+
+.search-input {
+  width: 100%;
+  padding: 0.75rem 1rem;
+  border: 1px solid var(--color-border);
+  border-radius: var(--border-radius-medium);
+  font-size: 1rem;
+}
+
+.stats {
+  font-size: 0.9rem;
+  color: var(--color-text-light);
+}
+
+.no-results {
+  text-align: center;
+  padding: var(--spacing-xl);
+  color: var(--color-text-light);
+}

@@ -1,0 +1,25 @@
+@import '../variables.css';
+
+.index-list {
+  display: grid;
+  grid-template-columns: repeat(auto-fill, minmax(200px, 1fr));
+  gap: var(--spacing-large);
+}
+
+.index-card {
+  background-color: var(--color-background-card);
+  border-radius: var(--border-radius-medium);
+  box-shadow: var(--shadow-small);
+  padding: var(--spacing-large);
+  transition: transform 0.2s, box-shadow 0.2s;
+}
+
+.index-card:hover {
+  transform: translateY(-5px);
+  box-shadow: var(--shadow-medium);
+}
+
+.index-card h2 {
+  color: var(--color-secondary);
+  font-size: 1.4rem;
+}

@@ -1,7 +1,8 @@
+// src/App.jsx
 import { BrowserRouter as Router, Routes, Route } from 'react-router-dom';
-import IndexList from './components/IndexList';
-import IndexDetail from './components/IndexDetail';
-import StockDetail from './components/StockDetail';
+import IndexList from './pages/IndexList';
+import IndexDetail from './pages/IndexDetail';
+import StockDetail from './pages/StockDetail';
 import './App.css';
 
 function App() {

@@ -1,0 +1,38 @@
+@import '../variables.css';
+
+/* UI Component styles */
+.index-tag {
+  display: inline-block;
+  margin-right: var(--spacing-small);
+}
+
+.index-badge {
+  display: inline-block;
+  padding: calc(var(--spacing-small) / 2) var(--spacing-small);
+  margin-right: var(--spacing-small);
+  margin-bottom: calc(var(--spacing-small) / 2);
+  background-color: #e9f2fe;
+  color: var(--color-primary);
+  border-radius: var(--border-radius-small);
+  font-size: 0.85rem;
+  text-decoration: none;
+}
+
+.index-badge:hover {
+  background-color: #d2e5fc;
+}
+
+.view-button {
+  display: inline-block;
+  padding: 0.4rem 0.8rem;
+  background-color: var(--color-primary);
+  color: white;
+  border-radius: var(--border-radius-small);
+  font-size: 0.85rem;
+  text-decoration: none;
+  text-align: center;
+}
+
+.view-button:hover {
+  background-color: var(--color-primary-dark);
+}

@@ -1,8 +1,9 @@
+// src/pages/IndexDetail.jsx
 import { useState, useEffect } from 'react';
 import { useParams, Link } from 'react-router-dom';
-import axios from 'axios';
-
-const API_BASE_URL = 'http://localhost:8000/api';
+import { getIndexDetail } from '../services/indexService';
+import '../styles/components/index-detail.css';
+import '../styles/components/ui-elements.css';
 
 function IndexDetail() {
   const [index, setIndex] = useState(null);
@@ -12,16 +13,19 @@ function IndexDetail() {
   const { name } = useParams();
 
   useEffect(() => {
-    axios.get(`${API_BASE_URL}/indices/${name}/`)
-      .then(response => {
-        setIndex(response.data);
+    const fetchIndexDetail = async () => {
+      try {
+        const data = await getIndexDetail(name);
+        setIndex(data);
         setLoading(false);
-      })
-      .catch(error => {
+      } catch (error) {
         setError(`Error fetching stocks for ${name}`);
         setLoading(false);
         console.error('Error fetching stocks:', error);
-      });
+      }
+    };
+
+    fetchIndexDetail();
   }, [name]);
 
   if (loading) return <div className="loading">Loading stocks...</div>;

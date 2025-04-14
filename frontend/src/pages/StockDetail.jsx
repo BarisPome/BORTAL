@@ -1,9 +1,9 @@
-// src/components/StockDetail.jsx
+// src/pages/StockDetail.jsx
 import { useState, useEffect } from 'react';
 import { useParams, Link } from 'react-router-dom';
-import axios from 'axios';
-
-const API_BASE_URL = 'http://localhost:8000/api';
+import { getStockDetail } from '../services/stockService';
+import { formatCurrency, formatNumber, formatPercentage } from '../utils/formatters';
+import '../styles/components/stock-detail.css';
 
 function StockDetail() {
   const [stockData, setStockData] = useState(null);
@@ -12,22 +12,29 @@ function StockDetail() {
   const { symbol } = useParams();
 
   useEffect(() => {
-    setLoading(true);
-    axios.get(`${API_BASE_URL}/stocks/${symbol}/detail/`)
-      .then(response => {
-        setStockData(response.data);
+    const fetchStockDetail = async () => {
+      try {
+        console.log("Fetching stock data for:", symbol);
+        const data = await getStockDetail(symbol);
+        console.log("Received stock data:", data);
+        setStockData(data);
         setLoading(false);
-      })
-      .catch(error => {
+      } catch (error) {
+        console.error("Error fetching stock details:", error);
         setError(`Error fetching data for ${symbol}: ${error.message}`);
         setLoading(false);
-        console.error('Error fetching stock details:', error);
-      });
+      }
+    };
+
+    fetchStockDetail();
   }, [symbol]);
 
   if (loading) return <div className="loading">Loading stock details...</div>;
   if (error) return <div className="error">{error}</div>;
   if (!stockData) return <div>Stock not found</div>;
+
+  const priceChange = stockData.current_price - stockData.previous_close;
+  const priceChangePercent = (priceChange / stockData.previous_close) * 100;
 
   return (
     <div className="stock-detail-container">
@@ -38,9 +45,9 @@ function StockDetail() {
       
       <div className="price-info">
         <div className="current-price">
-          <h2>₺{stockData.current_price}</h2>
-          <span className={stockData.current_price > stockData.previous_close ? "change positive" : "change negative"}>
-            {((stockData.current_price - stockData.previous_close) / stockData.previous_close * 100).toFixed(2)}%
+          <h2>{formatCurrency(stockData.current_price)}</h2>
+          <span className={priceChange >= 0 ? "change positive" : "change negative"}>
+            {priceChange >= 0 ? "+" : ""}{formatPercentage(priceChangePercent)}
           </span>
         </div>
       </div>
@@ -50,23 +57,23 @@ function StockDetail() {
           <h3>Market Summary</h3>
           <div className="info-row">
             <span>Previous Close</span>
-            <span>₺{stockData.previous_close}</span>
+            <span>{formatCurrency(stockData.previous_close)}</span>
           </div>
           <div className="info-row">
             <span>Open</span>
-            <span>₺{stockData.open}</span>
+            <span>{formatCurrency(stockData.open)}</span>
           </div>
           <div className="info-row">
             <span>Day Range</span>
-            <span>₺{stockData.day_low} - ₺{stockData.day_high}</span>
+            <span>{formatCurrency(stockData.day_low)} - {formatCurrency(stockData.day_high)}</span>
           </div>
           <div className="info-row">
             <span>Volume</span>
-            <span>{stockData.volume.toLocaleString()}</span>
+            <span>{formatNumber(stockData.volume)}</span>
           </div>
           <div className="info-row">
             <span>Average Volume</span>
-            <span>{stockData.average_volume.toLocaleString()}</span>
+            <span>{formatNumber(stockData.average_volume)}</span>
           </div>
         </div>
 
@@ -74,7 +81,7 @@ function StockDetail() {
           <h3>Fundamentals</h3>
           <div className="info-row">
             <span>Market Cap</span>
-            <span>₺{(stockData.market_cap / 1000000).toFixed(2)}M</span>
+            <span>{formatCurrency(stockData.market_cap / 1000000)}M</span>
           </div>
           <div className="info-row">
             <span>P/E Ratio</span>
@@ -82,11 +89,11 @@ function StockDetail() {
           </div>
           <div className="info-row">
             <span>EPS (TTM)</span>
-            <span>₺{stockData.EPS}</span>
+            <span>{formatCurrency(stockData.EPS)}</span>
           </div>
           <div className="info-row">
             <span>Dividend Yield</span>
-            <span>{(stockData.dividend_yield * 100).toFixed(2)}%</span>
+            <span>{formatPercentage(stockData.dividend_yield * 100)}</span>
           </div>
         </div>
       </div>
@@ -109,11 +116,11 @@ function StockDetail() {
               {stockData.historical_data.map((day, index) => (
                 <tr key={index}>
                   <td>{day.date}</td>
-                  <td>₺{day.open}</td>
-                  <td>₺{day.high}</td>
-                  <td>₺{day.low}</td>
-                  <td>₺{day.close}</td>
-                  <td>{day.volume.toLocaleString()}</td>
+                  <td>{formatCurrency(day.open)}</td>
+                  <td>{formatCurrency(day.high)}</td>
+                  <td>{formatCurrency(day.low)}</td>
+                  <td>{formatCurrency(day.close)}</td>
+                  <td>{formatNumber(day.volume)}</td>
                 </tr>
               ))}
             </tbody>

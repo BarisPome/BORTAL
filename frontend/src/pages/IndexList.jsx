@@ -1,8 +1,8 @@
+// src/pages/IndexList.jsx
 import { useState, useEffect } from 'react';
 import { Link } from 'react-router-dom';
-import axios from 'axios';
-
-const API_BASE_URL = 'http://localhost:8000/api';
+import { getIndices } from '../services/indexService';
+import '../styles/components/index-list.css';
 
 function IndexList() {
   const [indices, setIndices] = useState([]);
@@ -10,16 +10,19 @@ function IndexList() {
   const [error, setError] = useState(null);
 
   useEffect(() => {
-    axios.get(`${API_BASE_URL}/indices/`)
-      .then(response => {
-        setIndices(response.data);
+    const fetchIndices = async () => {
+      try {
+        const data = await getIndices();
+        setIndices(data);
         setLoading(false);
-      })
-      .catch(error => {
+      } catch (error) {
         setError('Error fetching indices');
         setLoading(false);
         console.error('Error fetching indices:', error);
-      });
+      }
+    };
+
+    fetchIndices();
   }, []);
 
   if (loading) return <div className="loading">Loading indices...</div>;

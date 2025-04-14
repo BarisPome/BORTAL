@@ -1,0 +1,67 @@
+@import './variables.css';
+
+/* General styles */
+* {
+  box-sizing: border-box;
+  margin: 0;
+  padding: 0;
+}
+
+body {
+  font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+  line-height: 1.6;
+  background-color: var(--color-background);
+  color: var(--color-text);
+}
+
+.app {
+  max-width: 1200px;
+  margin: 0 auto;
+  padding: var(--spacing-xl);
+}
+
+h1 {
+  margin-bottom: var(--spacing-large);
+  color: var(--color-secondary);
+}
+
+a {
+  text-decoration: none;
+  color: var(--color-primary);
+}
+
+a:hover {
+  color: var(--color-primary-dark);
+}
+
+.loading, .error {
+  text-align: center;
+  padding: var(--spacing-xl);
+  font-size: 1.2rem;
+}
+
+.error {
+  color: var(--color-negative);
+}
+
+/* Common header style */
+.header {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  margin-bottom: var(--spacing-xl);
+}
+
+/* Common back link style */
+.back-link {
+  background-color: var(--color-primary);
+  color: white;
+  padding: var(--spacing-small) var(--spacing-medium);
+  border-radius: var(--border-radius-small);
+  transition: background-color 0.2s;
+}
+
+.back-link:hover {
+  background-color: var(--color-primary-dark);
+  color: white;
+}
