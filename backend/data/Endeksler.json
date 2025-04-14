@@ -30,7 +30,7 @@
         "GARAN", "ISCTR", "SISE", "TTKOM", "ULKER", "YKBNK"
     ],
     "BIST_LİKİT_BANKA": [
-        "AKBNK", "GARAN", "HALKB", "ISCTR", "VAKBN", "YKB"
+        "AKBNK", "GARAN", "HALKB", "ISCTR", "VAKBN", "YKBNK"
     ],
     "BIST_BANKA_DIŞI_LİKİT_10": [
         "ASELS", "BIMAS", "EKGYO", "EREGL", "KCHOL", "PGSUS", "SASA", "TCELL", "TUPRS", "THYAO"
@@ -319,16 +319,16 @@
     "BIST_MENKUL_KIYM_YO": [
         "ATLAS", "EUKYO", "EUYO", "ETYAT", "GRNYO", "ISYAT", "MTRYO", "OYAYO", "VKFYO"
     ],
-    "BIST_TEKNOLOJI": [
-        "ALCTL", "ALTNY", "ARDYZ", "ARENA", "ASELS", "ATATP", "AZTEK", "BINBN", "DGATE", "DESPC",
-        "EDATA", "ESCOM", "FONET", "FORTE", "HTTBT", "INGRM", "INDES", "KFEIN", "KAREL", "KRONT",
-        "LINK", "LOGO", "MANAS", "MTRKS", "MIATK", "MOBTL", "NETAS", "OBASE", "ODINE", "ONRYT",
-        "PAPIL", "PATEK", "PENTA", "PKART", "REEDR", "SDTTR", "SMART", "VBTYZ"
-    ],
-    "BIST_BILISIM": [
-        "ALCTL", "ARDYZ", "ARENA", "ATATP", "AZTEK", "BINBN", "DGATE", "DESPC", "EDATA", "ESCOM",
-        "FONET", "FORTE", "HTTBT", "INGRM", "INDES", "KFEIN", "KAREL", "KRONT", "LINK", "LOGO",
-        "MANAS", "MTRKS", "MIATK", "MOBTL", "NETAS", "OBASE", "ODINE", "PAPIL", "PATEK", "PENTA",
-        "PKART", "REEDR", "SMART", "VBTYZ"
-    ]
+  "BIST_TEKNOLOJI": [
+    "ALCTL", "ALTNY", "ARDYZ", "ARENA", "ASELS", "ATATP", "AZTEK", "BINBN", "DGATE", "DESPC",
+    "EDATA", "ESCOM", "FONET", "FORTE", "HTTBT", "INGRM", "INDES", "KFEIN", "KAREL", "KRONT",
+    "LINK", "LOGO", "MANAS", "MTRKS", "MIATK", "MOBTL", "NETAS", "OBASE", "ODINE", "ONRYT",
+    "PAPIL", "PATEK", "PENTA", "PKART", "REEDR", "SDTTR", "SMART", "VBTYZ"
+  ],
+  "BIST_BILISIM": [
+    "ALCTL", "ARDYZ", "ARENA", "ATATP", "AZTEK", "BINBN", "DGATE", "DESPC", "EDATA", "ESCOM",
+    "FONET", "FORTE", "HTTBT", "INGRM", "INDES", "KFEIN", "KAREL", "KRONT", "LINK", "LOGO",
+    "MANAS", "MTRKS", "MIATK", "MOBTL", "NETAS", "OBASE", "ODINE", "PAPIL", "PATEK", "PENTA",
+    "PKART", "REEDR", "SMART", "VBTYZ"
+  ]
 }

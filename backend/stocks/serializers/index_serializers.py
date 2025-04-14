@@ -1,12 +1,5 @@
 from rest_framework import serializers
-from .models import Stock, Index
-
-class StockSerializer(serializers.ModelSerializer):
-    indices = serializers.StringRelatedField(many=True)
-    
-    class Meta:
-        model = Stock
-        fields = ['id', 'symbol', 'name', 'indices']
+from ..models import Index
 
 class IndexSerializer(serializers.ModelSerializer):
     class Meta:
@@ -14,6 +7,7 @@ class IndexSerializer(serializers.ModelSerializer):
         fields = ['id', 'name']
 
 class IndexDetailSerializer(serializers.ModelSerializer):
+    from .stock_serializers import StockSerializer
     stocks = StockSerializer(many=True, read_only=True)
     
     class Meta:

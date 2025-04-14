@@ -1,16 +1,6 @@
 from rest_framework import generics
-from .models import Stock, Index
-from .serializers import StockSerializer, IndexSerializer, IndexDetailSerializer
-
-# API views
-class IndexListAPIView(generics.ListAPIView):
-    queryset = Index.objects.all()
-    serializer_class = IndexSerializer
-
-class IndexDetailAPIView(generics.RetrieveAPIView):
-    queryset = Index.objects.all()
-    serializer_class = IndexDetailSerializer
-    lookup_field = 'name'
+from ..models import Stock
+from ..serializers import StockSerializer
 
 class StockListAPIView(generics.ListAPIView):
     queryset = Stock.objects.all()
