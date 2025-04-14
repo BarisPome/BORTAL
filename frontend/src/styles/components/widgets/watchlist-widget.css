@@ -1,0 +1,78 @@
+/* src/styles/components/widgets/watchlist-widget.css */
+@import '../../colors.css';
+
+.watchlist-items {
+  padding: 12px;
+}
+
+.watchlist-item {
+  display: flex;
+  align-items: center;
+  padding: 12px;
+  text-decoration: none;
+  border-radius: var(--border-radius-small);
+  transition: background-color 0.2s ease;
+}
+
+.watchlist-item:hover {
+  background-color: var(--color-background-main);
+}
+
+.stock-info {
+  flex: 1;
+}
+
+.stock-symbol {
+  font-weight: 600;
+  color: var(--color-neutral-darkest);
+  margin-bottom: 2px;
+}
+
+.stock-name {
+  font-size: 0.85rem;
+  color: var(--color-neutral-dark);
+}
+
+.stock-price {
+  font-family: 'Roboto Mono', monospace;
+  font-weight: 500;
+  color: var(--color-neutral-darkest);
+  margin-right: 16px;
+}
+
+.stock-change {
+  font-weight: 500;
+  width: 100px;
+  text-align: right;
+}
+
+.stock-change.positive {
+  color: var(--color-positive);
+}
+
+.stock-change.negative {
+  color: var(--color-negative);
+}
+
+.widget-footer {
+  padding: 16px;
+  border-top: 1px solid var(--color-border-light);
+  display: flex;
+  justify-content: center;
+}
+
+.watchlist-manage-btn {
+  padding: 8px 16px;
+  background-color: var(--color-background-main);
+  border: 1px solid var(--color-border);
+  border-radius: var(--border-radius-small);
+  color: var(--color-neutral-darker);
+  font-size: 0.9rem;
+  cursor: pointer;
+  transition: all 0.2s ease;
+}
+
+.watchlist-manage-btn:hover {
+  background-color: var(--color-neutral-lightest);
+  border-color: var(--color-neutral-light);
+}

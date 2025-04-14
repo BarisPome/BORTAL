@@ -1,0 +1,119 @@
+/* src/styles/components/widgets/market-overview-widget.css */
+@import '../../colors.css';
+
+.market-overview-widget {
+  min-height: 300px;
+}
+
+.market-overview-widget.loading {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  color: var(--color-neutral);
+}
+
+.market-heatmap {
+  padding: 0 16px;
+}
+
+.heatmap-header {
+  display: grid;
+  grid-template-columns: 1fr 100px 100px;
+  padding: 8px 12px;
+  font-size: 0.85rem;
+  font-weight: 500;
+  color: var(--color-neutral);
+  border-bottom: 1px solid var(--color-border-light);
+}
+
+.heatmap-body {
+  display: flex;
+  flex-direction: column;
+  margin-top: 8px;
+}
+
+.sector-row {
+  display: grid;
+  grid-template-columns: 1fr 100px 100px;
+  padding: 12px;
+  border-radius: var(--border-radius-small);
+  margin-bottom: 4px;
+  transition: transform 0.2s ease;
+}
+
+.sector-row:hover {
+  transform: translateX(4px);
+}
+
+.sector-title {
+  font-weight: 500;
+  color: var(--color-neutral-darker);
+}
+
+.sector-change {
+  font-weight: 500;
+  text-align: right;
+}
+
+.sector-change.positive {
+  color: var(--color-positive);
+}
+
+.sector-change.negative {
+  color: var(--color-negative);
+}
+
+.sector-volume {
+  font-family: 'Roboto Mono', monospace;
+  text-align: right;
+  color: var(--color-neutral-dark);
+}
+
+.market-summary {
+  display: flex;
+  justify-content: space-between;
+  padding: 16px;
+  margin-top: 16px;
+  border-top: 1px solid var(--color-border-light);
+}
+
+.summary-stat {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+}
+
+.stat-label {
+  font-size: 0.8rem;
+  color: var(--color-neutral);
+  margin-bottom: 4px;
+}
+
+.stat-value {
+  font-size: 1rem;
+  font-weight: 500;
+  color: var(--color-neutral-darker);
+}
+
+@media (max-width: 768px) {
+  .heatmap-header, .sector-row {
+    grid-template-columns: 1fr 80px 80px;
+  }
+  
+  .sector-volume, .sector-change {
+    font-size: 0.9rem;
+  }
+}
+
+@media (max-width: 480px) {
+  .market-summary {
+    flex-direction: column;
+    gap: 12px;
+  }
+  
+  .summary-stat {
+    flex-direction: row;
+    justify-content: space-between;
+    width: 100%;
+  }
+}

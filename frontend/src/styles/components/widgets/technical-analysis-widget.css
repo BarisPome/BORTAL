@@ -1,0 +1,204 @@
+/* src/styles/components/widgets/technical-analysis-widget.css */
+@import '../../colors.css';
+
+.technical-analysis-widget {
+  display: flex;
+  flex-direction: column;
+}
+
+.stock-selector {
+  padding: 0 16px 12px 16px;
+}
+
+.stock-selector select {
+  width: 100%;
+  padding: 8px 12px;
+  border: 1px solid var(--color-border);
+  border-radius: var(--border-radius-small);
+  background-color: var(--color-background-main);
+  font-size: 0.9rem;
+  color: var(--color-neutral-darker);
+  cursor: pointer;
+}
+
+.analysis-tabs {
+  display: flex;
+  border-bottom: 1px solid var(--color-border-light);
+  margin-bottom: 16px;
+}
+
+.analysis-tabs button {
+  flex: 1;
+  padding: 10px;
+  background: none;
+  border: none;
+  border-bottom: 2px solid transparent;
+  font-size: 0.9rem;
+  color: var(--color-neutral);
+  cursor: pointer;
+  transition: all 0.2s ease;
+}
+
+.analysis-tabs button.active {
+  color: var(--color-primary);
+  border-bottom-color: var(--color-primary);
+}
+
+.analysis-content {
+  flex: 1;
+  padding: 0 16px 16px 16px;
+}
+
+.summary-tab {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+}
+
+.signal-summary {
+  padding: 20px 0;
+  display: flex;
+  justify-content: center;
+}
+
+.signal-gauge {
+  width: 120px;
+  height: 120px;
+  border-radius: 50%;
+  background: conic-gradient(
+    var(--color-negative) 0deg,
+    var(--color-negative) 60deg,
+    var(--color-warning) 60deg,
+    var(--color-warning) 120deg,
+    var(--color-positive-light) 120deg,
+    var(--color-positive) 180deg
+  );
+  position: relative;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+}
+
+.signal-gauge::before {
+  content: '';
+  position: absolute;
+  width: 100px;
+  height: 100px;
+  border-radius: 50%;
+  background-color: var(--color-background-card);
+}
+
+.signal-value {
+  position: absolute;
+  top: 10px;
+  left: 60px;
+  width: 4px;
+  height: 50px;
+  background-color: var(--color-neutral-darkest);
+  transform-origin: bottom center;
+  z-index: 1;
+}
+
+.signal-display {
+  position: relative;
+  z-index: 2;
+}
+
+.signal-indicator {
+  padding: 4px 10px;
+  border-radius: var(--border-radius-small);
+  font-weight: 600;
+  font-size: 0.9rem;
+}
+
+.signal-indicator.positive {
+  background-color: var(--color-positive-light);
+  color: var(--color-positive-dark);
+}
+
+.signal-indicator.negative {
+  background-color: var(--color-negative-light);
+  color: var(--color-negative-dark);
+}
+
+.signal-indicator.neutral {
+  background-color: var(--color-warning-light);
+  color: var(--color-warning-dark);
+}
+
+.summary-details {
+  display: flex;
+  flex-wrap: wrap;
+  justify-content: space-around;
+  width: 100%;
+  margin-top: 16px;
+}
+
+.summary-item {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  margin: 0 12px 12px 12px;
+}
+
+.summary-label {
+  font-size: 0.85rem;
+  color: var(--color-neutral);
+  margin-bottom: 8px;
+}
+
+.summary-value {
+  font-weight: 600;
+  color: var(--color-neutral-darkest);
+}
+
+.indicators-list {
+  display: flex;
+  flex-direction: column;
+}
+
+.indicator-item {
+  display: flex;
+  align-items: center;
+  padding: 10px 0;
+  border-bottom: 1px solid var(--color-border-light);
+}
+
+.indicator-item:last-child {
+  border-bottom: none;
+}
+
+.indicator-name {
+  flex: 1;
+  font-size: 0.9rem;
+  color: var(--color-neutral-darker);
+}
+
+.indicator-value {
+  margin-right: 12px;
+  font-weight: 500;
+  font-family: 'Roboto Mono', monospace;
+  color: var(--color-neutral-darkest);
+}
+
+.widget-footer {
+  padding: 12px 16px;
+  border-top: 1px solid var(--color-border-light);
+  display: flex;
+  justify-content: center;
+}
+
+.detailed-analysis-btn {
+  padding: 8px 16px;
+  background-color: var(--color-primary);
+  border: none;
+  border-radius: var(--border-radius-small);
+  color: white;
+  font-size: 0.9rem;
+  cursor: pointer;
+  transition: background-color 0.2s ease;
+}
+
+.detailed-analysis-btn:hover {
+  background-color: var(--color-primary-dark);
+}

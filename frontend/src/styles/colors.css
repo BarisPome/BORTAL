@@ -1,0 +1,61 @@
+/* src/styles/colors.css */
+
+:root {
+    /* Primary Brand Colors */
+    --color-primary-darkest: #0d2b3e;  /* Dark blue for headers, footers */
+    --color-primary-dark: #1a5276;     /* Main blue for important elements */
+    --color-primary: #2980b9;          /* Standard blue for buttons, links */
+    --color-primary-light: #3498db;    /* Lighter blue for hover states */
+    --color-primary-lightest: #ebf5fb; /* Very light blue for backgrounds */
+    
+    /* Secondary Brand Colors */
+    --color-secondary-dark: #0e6655;   /* Dark teal for secondary elements */
+    --color-secondary: #148f77;        /* Standard teal for accents */
+    --color-secondary-light: #1abc9c;  /* Light teal for highlights */
+    
+    /* Accent Colors */
+    --color-accent-dark: #a04000;      /* Dark orange for important actions */
+    --color-accent: #d35400;           /* Standard orange for notifications */
+    --color-accent-light: #e67e22;     /* Light orange for hover states */
+    
+    /* Neutral Colors */
+    --color-neutral-darkest: #2c3e50;  /* Nearly black for text */
+    --color-neutral-darker: #34495e;   /* Dark gray for secondary headers */
+    --color-neutral-dark: #5d6d7e;     /* Dark gray for body text */
+    --color-neutral: #7f8c8d;          /* Medium gray for secondary text */
+    --color-neutral-light: #95a5a6;    /* Light gray for disabled text */
+    --color-neutral-lighter: #bdc3c7;  /* Very light gray for borders */
+    --color-neutral-lightest: #ecf0f1; /* Near-white for backgrounds */
+    
+    /* Semantic Colors */
+    --color-positive-dark: #196f3d;    /* Dark green for positive actions */
+    --color-positive: #27ae60;         /* Standard green for positive indicators */
+    --color-positive-light: #2ecc71;   /* Light green for positive highlights */
+    
+    --color-negative-dark: #922b21;    /* Dark red for negative actions */
+    --color-negative: #c0392b;         /* Standard red for negative indicators */
+    --color-negative-light: #e74c3c;   /* Light red for negative highlights */
+    
+    --color-warning-dark: #9a7d0a;     /* Dark yellow for warning actions */
+    --color-warning: #f39c12;          /* Standard yellow for warning indicators */
+    --color-warning-light: #f1c40f;    /* Light yellow for warning highlights */
+    
+    --color-info-dark: #2471a3;        /* Dark blue for info actions */
+    --color-info: #3498db;             /* Standard blue for info indicators */
+    --color-info-light: #5dade2;       /* Light blue for info highlights */
+    
+    /* Background Colors */
+    --color-background-main: #f4f6f9;  /* Main background color */
+    --color-background-card: #ffffff;  /* Card background color */
+    --color-background-dark: #e5e8e8;  /* Dark theme or alternate background */
+    
+    /* Border Colors */
+    --color-border-light: #e5e7e9;     /* Light borders */
+    --color-border: #d6dbdf;           /* Standard borders */
+    --color-border-dark: #aeb6bf;      /* Dark/emphasized borders */
+    
+    /* Shadow Colors - with alpha values */
+    --color-shadow-light: rgba(0, 0, 0, 0.05);  /* Light shadow */
+    --color-shadow: rgba(0, 0, 0, 0.1);         /* Standard shadow */
+    --color-shadow-dark: rgba(0, 0, 0, 0.2);    /* Dark/emphasized shadow */
+  }
