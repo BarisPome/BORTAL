@@ -1,3 +1,5 @@
+#/Users/barispome/Desktop/Project/BORTAL/backend/stocks/management/commands/load_data.py
+
 import os
 from django.core.management.base import BaseCommand
 from stocks.models import Stock

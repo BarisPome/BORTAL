@@ -1,3 +1,5 @@
+#/Users/barispome/Desktop/Project/BORTAL/backend/stocks/management/commands/load_indices.py
+
 import os
 import json
 from django.core.management.base import BaseCommand
