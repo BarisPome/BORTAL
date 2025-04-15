@@ -1,3 +1,5 @@
+# index_serializers.py
+
 from rest_framework import serializers
 from ..models import Index
 
@@ -7,9 +9,13 @@ class IndexSerializer(serializers.ModelSerializer):
         fields = ['id', 'name']
 
 class IndexDetailSerializer(serializers.ModelSerializer):
-    from .stock_serializers import StockSerializer
-    stocks = StockSerializer(many=True, read_only=True)
-    
+    # LAZY IMPORT: Dışarıda yaparsan circular import oluyor!
+    def get_stocks(self, obj):
+        from .stock_serializers import StockListSerializer
+        return StockListSerializer(obj.stocks.all(), many=True).data
+
+    stocks = serializers.SerializerMethodField()
+
     class Meta:
         model = Index
         fields = ['id', 'name', 'stocks']
