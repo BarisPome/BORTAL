@@ -12,9 +12,9 @@ function MarketOverviewWidget() {
     setTimeout(() => {
       setMarketData({
         sectors: [
-          { name: 'Banking', change: 2.34, volume: 123000000, value: 352000000 },
+          { name: 'Banking', change: 2.44, volume: 123000000, value: 352000000 },
           { name: 'Technology', change: 1.75, volume: 87000000, value: 215000000 },
-          { name: 'Energy', change: -0.82, volume: 98000000, value: 178000000 },
+          { name: 'Energy', change: -0.99, volume: 98000000, value: 178000000 },
           { name: 'Industrials', change: 0.46, volume: 76000000, value: 164000000 },
           { name: 'Materials', change: -1.23, volume: 68000000, value: 142000000 },
           { name: 'Consumer', change: 0.91, volume: 54000000, value: 128000000 },

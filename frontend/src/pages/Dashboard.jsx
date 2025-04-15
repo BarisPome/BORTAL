@@ -22,25 +22,33 @@ function Dashboard() {
         </div>
       </div>
       
-      <div className="index-selector">
-        <button 
-          className={selectedIndex === 'BIST100' ? 'active' : ''} 
-          onClick={() => setSelectedIndex('BIST100')}
-        >
-          BIST 100
-        </button>
-        <button 
-          className={selectedIndex === 'BIST50' ? 'active' : ''} 
-          onClick={() => setSelectedIndex('BIST50')}
-        >
-          BIST 50
-        </button>
-        <button 
-          className={selectedIndex === 'BIST30' ? 'active' : ''} 
-          onClick={() => setSelectedIndex('BIST30')}
-        >
-          BIST 30
-        </button>
+      <div className="index-selector-container">
+        <div className="index-selector">
+          {[
+            'BIST100', 
+            'BIST50', 
+            'BIST30', 
+            'BIST_KOBI_SANAYI', 
+            'BIST_SINAI', 
+            'BIST_GIDA_ICECEK', 
+            'BIST_KIMYA_PETROL_PLASTIK',
+            'BIST_MADENCILIK', 
+            'BIST_METAL_ESYA_MAKINA', 
+            'BIST_ORMAN_KAGIT_BASIM', 
+            'BIST_TAS_TOPRAK',
+            'BIST_TEKSTIL_DERI', 
+            'BIST_HIZMETLER', 
+            'BIST_BANKA'
+          ].map(index => (
+            <button
+              key={index}
+              className={selectedIndex === index ? 'active' : ''}
+              onClick={() => setSelectedIndex(index)}
+            >
+              {index.replace('_', ' ')}
+            </button>
+          ))}
+        </div>
       </div>
       
       <div className="dashboard-grid">
