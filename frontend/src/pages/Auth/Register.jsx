@@ -1,8 +1,8 @@
 // src/pages/Register.jsx
 import { useState } from 'react';
 import { Link, useNavigate } from 'react-router-dom';
-import { useAuth } from '../context/AuthContext';
-import '../styles/pages/auth.css';
+import { useAuth } from '../../context/AuthContext';
+import '../../styles/pages/Auth/auth.css';
 
 function Register() {
   const [formData, setFormData] = useState({
@@ -190,7 +190,7 @@ function Register() {
         </form>
         
         <div className="auth-footer">
-          <p>Already have an account? <Link to="/login">Login</Link></p>
+          <p>Already have an account? <Link to="/auth/login">Login</Link></p>
         </div>
       </div>
     </div>

@@ -17,30 +17,30 @@ function Footer() {
         
         <div className="footer-links">
           <div className="footer-section">
-            <h3 className="footer-section-title">Quick Links</h3>
+            <h3 className="footer-section-title">Hızlı Erişim</h3>
             <ul className="footer-nav">
-              <li><Link to="/">Dashboard</Link></li>
-              <li><Link to="/market">Market</Link></li>
-              <li><Link to="/watchlists">Watchlists</Link></li>
-              <li><Link to="/portfolios">Portfolios</Link></li>
+              <li><Link to="/">Gösterge Paneli</Link></li>
+              <li><Link to="/market">Piyasa</Link></li>
+              <li><Link to="/watchlists">İzleme Listeleri</Link></li>
+              <li><Link to="/portfolios">Portföyler</Link></li>
             </ul>
           </div>
           
           <div className="footer-section">
-            <h3 className="footer-section-title">Resources</h3>
+            <h3 className="footer-section-title">Kaynaklar</h3>
             <ul className="footer-nav">
-              <li><Link to="/help">Help Center</Link></li>
-              <li><Link to="/faq">FAQ</Link></li>
-              <li><Link to="/contact">Contact</Link></li>
+              <li><Link to="/help">Yardım Merkezi</Link></li>
+              <li><Link to="/faq">SSS</Link></li>
+              <li><Link to="/contact">İletişim</Link></li>
             </ul>
           </div>
           
           <div className="footer-section">
-            <h3 className="footer-section-title">Legal</h3>
+            <h3 className="footer-section-title">Yasal</h3>
             <ul className="footer-nav">
-              <li><Link to="/terms">Terms of Service</Link></li>
-              <li><Link to="/privacy">Privacy Policy</Link></li>
-              <li><Link to="/disclaimer">Disclaimer</Link></li>
+              <li><Link to="/terms">Hizmet Şartları</Link></li>
+              <li><Link to="/privacy">Gizlilik Politikası</Link></li>
+              <li><Link to="/disclaimer">Yasal Uyarı</Link></li>
             </ul>
           </div>
         </div>
@@ -48,7 +48,7 @@ function Footer() {
       
       <div className="footer-bottom">
         <p className="copyright">
-          &copy; {currentYear} BORTAL. All rights reserved.
+          &copy; {currentYear} BORTAL. Tüm hakları saklıdır.
         </p>
         <div className="footer-social">
           <a href="#" className="social-link">

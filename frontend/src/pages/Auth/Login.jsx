@@ -1,8 +1,8 @@
 // src/pages/Login.jsx
 import { useState } from 'react';
 import { Link, useNavigate, useLocation } from 'react-router-dom';
-import { useAuth } from '../context/AuthContext';
-import '../styles/pages/auth.css';
+import { useAuth } from '../../context/AuthContext';
+import '../../styles/pages/Auth/auth.css';
 
 function Login() {
   const [username, setUsername] = useState('');
@@ -89,7 +89,7 @@ function Login() {
         </form>
         
         <div className="auth-footer">
-          <p>Don't have an account? <Link to="/register">Register</Link></p>
+          <p>Don't have an account? <Link to="/auth/register">Register</Link></p>
         </div>
       </div>
     </div>

@@ -1,8 +1,8 @@
 import { useState, useEffect } from 'react';
 import { useParams, Link } from 'react-router-dom';
-import { getStockDetail } from '../services/stockService';
-import { formatCurrency, formatNumber, formatPercentage } from '../utils/formatters';
-import '../styles/components/stock-detail.css';
+import { getStockDetail } from '../../services/stockService';
+import { formatCurrency, formatNumber, formatPercentage } from '../../utils/formatters';
+import '../../styles/components/stock-detail.css';
 import {
   ResponsiveContainer,
   LineChart,

@@ -46,7 +46,7 @@ api.interceptors.response.use(
         
         if (!refreshToken) {
           // No refresh token, redirect to login
-          window.location.href = '/login';
+          window.location.href = '/auth/login';
           return Promise.reject(error);
         }
         
@@ -69,7 +69,7 @@ api.interceptors.response.use(
         localStorage.removeItem('user');
         
         // Redirect to login
-        window.location.href = '/login';
+        window.location.href = '/auth/login';
         return Promise.reject(refreshError);
       }
     }

@@ -1,5 +1,5 @@
 /* src/styles/pages/auth.css */
-@import '../variables.css';
+@import '../../variables.css';
 
 .auth-container {
   display: flex;

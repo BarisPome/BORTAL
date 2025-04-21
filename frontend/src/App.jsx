@@ -5,11 +5,9 @@ import ProtectedRoute from './components/ProtectedRoute';
 
 // Pages
 import Dashboard from './pages/Dashboard';
-import IndexList from './pages/IndexList';
-import IndexDetail from './pages/IndexDetail';
-import StockDetail from './pages/StockDetail';
-import Login from './pages/Login';
-import Register from './pages/Register';
+import StockDetail from './pages/Stock/StockDetail';
+import Login from './pages/Auth/Login';
+import Register from './pages/Auth/Register';
 import NotFound from './pages/NotFound';
 
 // Layout components
@@ -25,8 +23,8 @@ function App() {
           <main className="main-content">
             <Routes>
               {/* Public routes */}
-              <Route path="/login" element={<Login />} />
-              <Route path="/register" element={<Register />} />
+              <Route path="/auth/login" element={<Login />} />
+              <Route path="/auth/register" element={<Register />} />
               
               {/* Protected routes */}
               <Route 
@@ -34,24 +32,6 @@ function App() {
                 element={
                   <ProtectedRoute>
                     <Dashboard />
-                  </ProtectedRoute>
-                } 
-              />
-              
-              <Route 
-                path="/indices" 
-                element={
-                  <ProtectedRoute>
-                    <IndexList />
-                  </ProtectedRoute>
-                } 
-              />
-              
-              <Route 
-                path="/index/:name" 
-                element={
-                  <ProtectedRoute>
-                    <IndexDetail />
                   </ProtectedRoute>
                 } 
               />
