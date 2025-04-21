@@ -1,6 +1,7 @@
 // src/components/widgets/WatchlistWidget.jsx
 import { Link } from 'react-router-dom';
 import '../../styles/components/widgets/watchlist-widget.css';
+import StockDetail from '../../pages/StockDetail';
 
 function WatchlistWidget() {
   const watchlistItems = [

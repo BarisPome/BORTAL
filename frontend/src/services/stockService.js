@@ -7,7 +7,11 @@ export const getStocks = async (indexName = null) => {
   return response.data;
 };
 
-export const getStockDetail = async (symbol) => {
-  const response = await api.get(`/stocks/${symbol}/detail/`);
+
+export const getStockDetail = async (symbol, range = '1m') => {
+  const response = await api.get(`/stocks/${symbol}/`, {
+    params: { range }
+  });
   return response.data;
 };
+

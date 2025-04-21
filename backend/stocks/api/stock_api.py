@@ -12,6 +12,8 @@ from ..serializers.stock_serializers import (
     StockPriceSerializer, StockTechnicalSerializer
 )
 
+from rest_framework.exceptions import ValidationError
+
 class StockListAPIView(BaseAPIView):
     """API endpoint for listing stocks with filtering options"""
     cache_timeout = 3600  # Cache for 1 hour
@@ -66,14 +68,43 @@ class StockListAPIView(BaseAPIView):
 
 class StockDetailAPIView(BaseAPIView):
     """API endpoint for retrieving detailed stock information"""
-    cache_timeout = 900  # Cache for 15 minutes
-    
+    cache_timeout = 900  # 15 min cache
+
     def get(self, request, symbol):
-        stock = get_object_or_404(Stock, symbol=symbol)
+        stock = get_object_or_404(Stock, symbol__iexact=symbol)
         serializer = StockDetailSerializer(stock)
-        return self.success_response(serializer.data)
+        stock_data = serializer.data
 
+        # Handle price history range
+        range_param = request.query_params.get("range", "1m").lower()
+        range_days = {
+            "1w": 7,
+            "1m": 30,
+            "1y": 365,
+            "3y": 365 * 3,
+            "5y": 365 * 5
+        }
 
+        if range_param not in range_days:
+            raise ValidationError("Invalid range. Use one of: 1w, 1m, 1y, 3y, 5y")
+
+        days = range_days[range_param]
+        min_date = datetime.now().date() - timedelta(days=days)
+
+        # Get price history
+        prices = (
+            StockPrice.objects
+            .filter(stock=stock, date__gte=min_date)
+            .order_by('date')
+        )
+
+        price_data = StockPriceSerializer(prices, many=True).data
+        stock_data['price_history'] = price_data
+        stock_data['price_range'] = range_param
+
+        return self.success_response(stock_data)
+    
+    
 class StockPriceAPIView(BaseAPIView):
     """API endpoint for retrieving stock price history"""
     cache_timeout = 1800  # Cache for 30 minutes

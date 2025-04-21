@@ -8,6 +8,7 @@ from django.views.decorators.vary import vary_on_cookie
 from django.db import transaction
 from rest_framework.permissions import IsAuthenticated
 import logging
+from functools import partial
 
 logger = logging.getLogger(__name__)
 
@@ -33,18 +34,23 @@ class BaseAPIView(APIView):
     
     def dispatch(self, request, *args, **kwargs):
         """Override dispatch to add caching and permissions"""
-        # Apply caching if configured
+
         if self.cache_timeout is not None and request.method.lower() == 'get':
-            decorator = method_decorator(cache_page(self.cache_timeout))
-            # Vary cache by cookie (user) if authentication is required
+            # Compose decorators
+            dispatch_method = super().dispatch
+
             if self.authentication_required:
-                decorator = method_decorator(vary_on_cookie(cache_page(self.cache_timeout)))
-            view = decorator(super().dispatch)
-        else:
-            view = super().dispatch
+                dispatch_method = method_decorator(vary_on_cookie)(
+                    method_decorator(cache_page(self.cache_timeout))(dispatch_method)
+                )
+            else:
+                dispatch_method = method_decorator(cache_page(self.cache_timeout))(dispatch_method)
+
+            # Call the decorated dispatch method
+            return dispatch_method(self, request, *args, **kwargs)
+
+        return super().dispatch(request, *args, **kwargs)
         
-        return view(request, *args, **kwargs)
-    
     def initial(self, request, *args, **kwargs):
         """Handle authentication requirements"""
         super().initial(request, *args, **kwargs)
