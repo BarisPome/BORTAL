@@ -15,13 +15,17 @@ from .api.portfolio_api import (
 )
 from .api.dashboard_api import DashboardAPIView
 
+from rest_framework_simplejwt.views import TokenRefreshView
+from .api.auth_views import LoginView, RegisterView, LogoutView, UserProfileView
+
+
+
 urlpatterns = [
     # Stock Market Data
     path('sectors/', SectorListAPIView.as_view(), name='sector-list'),
     path('indices/', IndexListAPIView.as_view(), name='index-list'),
     path('stocks/', StockListAPIView.as_view(), name='stock-list'),
     path('stocks/<str:symbol>/', StockDetailAPIView.as_view(), name='stock-detail'),
-    path('stocks/<str:symbol>/prices/', StockPriceAPIView.as_view(), name='stock-prices'),
     path('stocks/<str:symbol>/technical/', StockTechnicalAPIView.as_view(), name='stock-technical'),
     
     # News
@@ -43,4 +47,10 @@ urlpatterns = [
     
     # Dashboard
     path('dashboard/', DashboardAPIView.as_view(), name='dashboard'),
+
+    path('auth/login/', LoginView.as_view(), name='login'),
+    path('auth/register/', RegisterView.as_view(), name='register'),
+    path('auth/logout/', LogoutView.as_view(), name='logout'),
+    path('auth/token/refresh/', TokenRefreshView.as_view(), name='token_refresh'),
+    path('auth/profile/', UserProfileView.as_view(), name='user_profile'),
 ]

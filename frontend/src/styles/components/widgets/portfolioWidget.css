@@ -1,0 +1,181 @@
+/* src/styles/components/widgets/portfolioWidget.css */
+.portfolio-widget {
+    background-color: #fff;
+    border-radius: 8px;
+    box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
+    margin-bottom: 20px;
+    overflow: hidden;
+  }
+  
+  .portfolio-widget .widget-header {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    padding: 16px 20px;
+    border-bottom: 1px solid #eaeaea;
+  }
+  
+  .portfolio-widget .widget-header h2 {
+    margin: 0;
+    font-size: 18px;
+    font-weight: 600;
+    color: #333;
+  }
+  
+  .portfolio-widget .view-all {
+    font-size: 14px;
+    color: #1e88e5;
+    text-decoration: none;
+  }
+  
+  .portfolio-widget .view-all:hover {
+    text-decoration: underline;
+  }
+  
+  .portfolio-summary {
+    display: flex;
+    justify-content: space-between;
+    padding: 16px 20px;
+    background-color: #f5f7fa;
+    border-bottom: 1px solid #eaeaea;
+  }
+  
+  .portfolio-value, .portfolio-change {
+    display: flex;
+    flex-direction: column;
+  }
+  
+  .portfolio-value .label, .portfolio-change .label {
+    font-size: 13px;
+    color: #666;
+    margin-bottom: 4px;
+  }
+  
+  .portfolio-value .value {
+    font-size: 22px;
+    font-weight: 700;
+    color: #333;
+  }
+  
+  .portfolio-change .value {
+    font-size: 20px;
+    font-weight: 600;
+  }
+  
+  .portfolio-change .value.positive {
+    color: #4caf50;
+  }
+  
+  .portfolio-change .value.negative {
+    color: #f44336;
+  }
+  
+  .holdings-header {
+    display: grid;
+    grid-template-columns: 2fr 1fr 1fr 1fr 1fr;
+    background-color: #f5f7fa;
+    padding: 10px 20px;
+    border-bottom: 1px solid #eaeaea;
+  }
+  
+  .column-heading {
+    font-size: 12px;
+    font-weight: 600;
+    color: #666;
+    text-transform: uppercase;
+  }
+  
+  .holdings-list {
+    max-height: 350px;
+    overflow-y: auto;
+  }
+  
+  .holding-item {
+    display: grid;
+    grid-template-columns: 2fr 1fr 1fr 1fr 1fr;
+    align-items: center;
+    padding: 12px 20px;
+    border-bottom: 1px solid #eaeaea;
+    text-decoration: none;
+    color: inherit;
+    transition: background-color 0.2s;
+  }
+  
+  .holding-item:hover {
+    background-color: #f5f7fa;
+  }
+  
+  .holding-item:last-child {
+    border-bottom: none;
+  }
+  
+  .stock-info {
+    display: flex;
+    flex-direction: column;
+  }
+  
+  .stock-symbol {
+    font-weight: 600;
+    color: #333;
+    font-size: 15px;
+  }
+  
+  .stock-name {
+    font-size: 13px;
+    color: #666;
+    margin-top: 2px;
+  }
+  
+  .shares, .price, .value {
+    font-size: 14px;
+    color: #333;
+  }
+  
+  .change {
+    font-size: 14px;
+    font-weight: 600;
+  }
+  
+  .change.positive {
+    color: #4caf50;
+  }
+  
+  .change.negative {
+    color: #f44336;
+  }
+  
+  .portfolio-actions {
+    display: flex;
+    justify-content: space-between;
+    padding: 16px 20px;
+    border-top: 1px solid #eaeaea;
+  }
+  
+  .btn {
+    padding: 8px 16px;
+    border-radius: 4px;
+    border: none;
+    font-size: 14px;
+    font-weight: 500;
+    cursor: pointer;
+    transition: background-color 0.2s;
+  }
+  
+  .btn.primary {
+    background-color: #1e88e5;
+    color: white;
+  }
+  
+  .btn.primary:hover {
+    background-color: #1976d2;
+  }
+  
+  .btn.secondary {
+    background-color: #f5f7fa;
+    color: #333;
+    border: 1px solid #ddd;
+  }
+  
+  .btn.secondary:hover {
+    background-color: #e8eaed;
+  }

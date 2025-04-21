@@ -1,21 +1,79 @@
-import { BrowserRouter as Router, Routes, Route } from 'react-router-dom';
+// src/App.jsx
+import { BrowserRouter as Router, Routes, Route, Navigate } from 'react-router-dom';
+import { AuthProvider } from './context/AuthContext';
+import ProtectedRoute from './components/ProtectedRoute';
+
+// Pages
 import Dashboard from './pages/Dashboard';
 import IndexList from './pages/IndexList';
 import IndexDetail from './pages/IndexDetail';
 import StockDetail from './pages/StockDetail';
+import Login from './pages/Login';
+import Register from './pages/Register';
+import NotFound from './pages/NotFound';
+
+// Layout components
+import Header from './components/layout/Header';
+import Footer from './components/layout/Footer';
 
 function App() {
   return (
-    <Router>
-      <div className="app">
-        <Routes>
-          <Route path="/" element={<Dashboard />} />
-          <Route path="/indices" element={<IndexList />} />
-          <Route path="/index/:name" element={<IndexDetail />} />
-          <Route path="/stock/:symbol" element={<StockDetail />} />
-        </Routes>
-      </div>
-    </Router>
+    <AuthProvider>
+      <Router>
+        <div className="app">
+          <Header />
+          <main className="main-content">
+            <Routes>
+              {/* Public routes */}
+              <Route path="/login" element={<Login />} />
+              <Route path="/register" element={<Register />} />
+              
+              {/* Protected routes */}
+              <Route 
+                path="/" 
+                element={
+                  <ProtectedRoute>
+                    <Dashboard />
+                  </ProtectedRoute>
+                } 
+              />
+              
+              <Route 
+                path="/indices" 
+                element={
+                  <ProtectedRoute>
+                    <IndexList />
+                  </ProtectedRoute>
+                } 
+              />
+              
+              <Route 
+                path="/index/:name" 
+                element={
+                  <ProtectedRoute>
+                    <IndexDetail />
+                  </ProtectedRoute>
+                } 
+              />
+              
+              <Route 
+                path="/stock/:symbol" 
+                element={
+                  <ProtectedRoute>
+                    <StockDetail />
+                  </ProtectedRoute>
+                } 
+              />
+              
+              {/* Not found route */}
+              <Route path="/404" element={<NotFound />} />
+              <Route path="*" element={<Navigate to="/404" replace />} />
+            </Routes>
+          </main>
+          <Footer />
+        </div>
+      </Router>
+    </AuthProvider>
   );
 }
 

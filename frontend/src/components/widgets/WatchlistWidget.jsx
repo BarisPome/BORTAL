@@ -1,48 +1,94 @@
 // src/components/widgets/WatchlistWidget.jsx
+import { useState, useEffect } from 'react';
 import { Link } from 'react-router-dom';
 import '../../styles/components/widgets/watchlist-widget.css';
-import StockDetail from '../../pages/StockDetail';
 
-function WatchlistWidget() {
-  const watchlistItems = [
-    { symbol: 'AKBNK', name: 'Akbank', price: 23.45, change: 1.25, percentChange: 5.62, positive: true },
-    { symbol: 'THYAO', name: 'Turkish Airlines', price: 55.70, change: -2.30, percentChange: -3.96, positive: false },
-    { symbol: 'SASA', name: 'SASA Polyester', price: 42.18, change: 3.42, percentChange: 8.82, positive: true },
-    { symbol: 'EREGL', name: 'Ereğli Iron', price: 36.90, change: 0.70, percentChange: 1.93, positive: true },
-    { symbol: 'GARAN', name: 'Garanti Bank', price: 18.75, change: -0.45, percentChange: -2.34, positive: false },
-  ];
+
+
+function WatchlistWidget({ watchlists = [] }) {
+  const [activeWatchlist, setActiveWatchlist] = useState(null);
+  const [loading, setLoading] = useState(false);
   
+  useEffect(() => {
+    // Set the default watchlist as active or the first one
+    if (watchlists.length > 0) {
+      const defaultWatchlist = watchlists.find(watchlist => watchlist.is_default) || watchlists[0];
+      setActiveWatchlist(defaultWatchlist);
+    }
+  }, [watchlists]);
+
+  if (watchlists.length === 0) {
+    return (
+      <div className="watchlist-widget widget empty-state">
+        <div className="widget-header">
+          <h2>İzleme Listem</h2>
+          <button className="add-list-btn">+ Yeni Liste Oluştur</button>
+        </div>
+        <div className="empty-watchlist">
+          <div className="empty-icon">📋</div>
+          <p>Henüz izleme listeniz bulunmuyor.</p>
+          <button className="btn primary">İzleme Listesi Oluştur</button>
+        </div>
+      </div>
+    );
+  }
+
   return (
-    <div className="widget watchlist-widget">
+    <div className="watchlist-widget widget">
       <div className="widget-header">
-        <h3>My Watchlist</h3>
-        <div className="widget-controls">
-          <button className="widget-control">
-            <span className="control-icon add"></span>
-          </button>
-          <button className="widget-control">
-            <span className="control-icon expand"></span>
-          </button>
+        <h2>İzleme Listem</h2>
+        <div className="widget-actions">
+          <button className="add-stock-btn">+ Hisse Ekle</button>
+          <Link to="/watchlists" className="view-all">Tümünü Gör</Link>
         </div>
       </div>
       
-      <div className="watchlist-items">
-        {watchlistItems.map(item => (
-          <Link to={`/stock/${item.symbol}`} key={item.symbol} className="watchlist-item">
-            <div className="stock-info">
-              <div className="stock-symbol">{item.symbol}</div>
-              <div className="stock-name">{item.name}</div>
+      {watchlists.length > 1 && (
+        <div className="watchlist-selector">
+          {watchlists.map(watchlist => (
+            <button
+              key={watchlist.id}
+              className={`watchlist-tab ${activeWatchlist?.id === watchlist.id ? 'active' : ''}`}
+              onClick={() => setActiveWatchlist(watchlist)}
+            >
+              {watchlist.name} ({watchlist.stock_count})
+            </button>
+          ))}
+        </div>
+      )}
+      
+      <div className="watchlist-table">
+        <div className="watchlist-header">
+          <div className="column-heading symbol">Sembol</div>
+          <div className="column-heading price">Son Fiyat</div>
+          <div className="column-heading change">Değişim</div>
+        </div>
+        
+        <div className="watchlist-body">
+          {activeWatchlist?.top_stocks?.map((stock, index) => (
+            <Link to={`/stock/${stock.symbol}`} key={index} className="watchlist-item">
+              <div className="stock-info">
+                <div className="stock-symbol">{stock.symbol}</div>
+                <div className="stock-name">{stock.name}</div>
+              </div>
+              <div className="stock-price">{stock.price.toLocaleString('tr-TR')} ₺</div>
+              <div className={`stock-change ${stock.change_percent >= 0 ? 'positive' : 'negative'}`}>
+                {stock.change_percent >= 0 ? '+' : ''}{stock.change_percent.toFixed(2)}%
+              </div>
+            </Link>
+          ))}
+          
+          {activeWatchlist?.top_stocks?.length === 0 && (
+            <div className="empty-watchlist-items">
+              <p>Bu izleme listesinde hisse senedi bulunmuyor.</p>
+              <button className="btn primary sm">Hisse Ekle</button>
             </div>
-            <div className="stock-price">{item.price.toFixed(2)}</div>
-            <div className={`stock-change ${item.positive ? 'positive' : 'negative'}`}>
-              {item.positive ? '+' : ''}{item.change.toFixed(2)} ({item.percentChange.toFixed(2)}%)
-            </div>
-          </Link>
-        ))}
+          )}
+        </div>
       </div>
       
-      <div className="widget-footer">
-        <button className="watchlist-manage-btn">Manage Watchlist</button>
+      <div className="watchlist-footer">
+        <button className="btn secondary">Listeyi Düzenle</button>
       </div>
     </div>
   );
