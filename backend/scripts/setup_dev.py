@@ -137,77 +137,8 @@ def load_initial_data():
     print("\nLoading initial data...")
     
     # Load basic stock data
-    call_command('load_data')
+    call_command('load_indices_stock_data')
     
-    # Load index data
-    call_command('load_indices')
-    
-    # Load some sample data for testing
-    print("Loading sample price data for testing...")
-    try:
-        # Fetch a few stocks to add sample price data
-        stocks = Stock.objects.all()[:10]
-        
-        if stocks:
-            from datetime import datetime, timedelta
-            from decimal import Decimal
-            import random
-            from stocks.models import StockPrice
-            
-            # Generate sample price data for the last 30 days
-            today = datetime.now().date()
-            for stock in stocks:
-                print(f"  Adding sample price data for {stock.symbol}")
-                
-                # Start with a random price between 50 and 500
-                price = Decimal(str(random.uniform(50, 500)))
-                price = price.quantize(Decimal('0.01'))
-                
-                # Generate 30 days of price data
-                for i in range(30, 0, -1):
-                    date = today - timedelta(days=i)
-                    
-                    # Calculate random daily change (between -3% and +3%)
-                    change_pct = Decimal(str(random.uniform(-0.03, 0.03)))
-                    daily_change = price * change_pct
-                    
-                    # Calculate daily prices
-                    open_price = price
-                    close_price = price + daily_change
-                    
-                    # Make sure prices are positive and have proper precision
-                    if close_price < Decimal('1'):
-                        close_price = Decimal('1')
-                    
-                    high_price = max(open_price, close_price) * Decimal(str(random.uniform(1, 1.02)))
-                    low_price = min(open_price, close_price) * Decimal(str(random.uniform(0.98, 1)))
-                    
-                    # Random volume between 10,000 and 1,000,000
-                    volume = random.randint(10000, 1000000)
-                    
-                    # Create price record
-                    StockPrice.objects.get_or_create(
-                        stock=stock,
-                        date=date,
-                        defaults={
-                            'open': open_price.quantize(Decimal('0.01')),
-                            'high': high_price.quantize(Decimal('0.01')),
-                            'low': low_price.quantize(Decimal('0.01')),
-                            'close': close_price.quantize(Decimal('0.01')),
-                            'adjusted_close': close_price.quantize(Decimal('0.01')),
-                            'volume': volume
-                        }
-                    )
-                    
-                    # Use close price as next day's starting price
-                    price = close_price
-            
-            print("✅ Sample price data loaded")
-        else:
-            print("⚠️ No stocks found, skipping sample price data")
-    
-    except Exception as e:
-        print(f"⚠️ Error loading sample price data: {str(e)}")
     
     print("✅ Initial data loaded")
 
