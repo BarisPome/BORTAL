@@ -9,7 +9,8 @@ import StockDetail from './pages/Stock/StockDetail';
 import Login from './pages/Auth/Login';
 import Register from './pages/Auth/Register';
 import NotFound from './pages/NotFound';
-import WatchlistDetail from './pages/WatchlistDetail';
+import WatchlistDetail from './pages/Watchlist/WatchlistDetail';
+import PortfolioDetail from './pages/PortfolioDetail';
 
 // Layout components
 import Header from './components/layout/Header';
@@ -63,6 +64,28 @@ function App() {
                   </ProtectedRoute>
                 }
               />
+
+              <Route
+                path="/portfolios/:id" 
+                element={
+                  <ProtectedRoute>
+                    <PortfolioDetail />
+                  </ProtectedRoute>
+                }
+              />
+
+              <Route
+                path="/portfolios" 
+                element={
+                  <ProtectedRoute>
+                    <PortfolioDetail />
+                  </ProtectedRoute>
+                }
+              />
+
+              
+
+
 
 
 

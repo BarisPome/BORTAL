@@ -1,0 +1,182 @@
+.portfolio-transactions {
+    margin-bottom: 2rem;
+  }
+  
+  .transactions-header {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    margin-bottom: 1rem;
+  }
+  
+  .transactions-header h3 {
+    margin: 0;
+    color: var(--color-neutral-darkest);
+  }
+  
+  .transactions-filter {
+    display: flex;
+    flex-wrap: wrap;
+    gap: 1rem;
+    margin-bottom: 1.5rem;
+    padding: 1rem;
+    background-color: var(--color-neutral-lightest);
+    border-radius: var(--border-radius-small);
+  }
+  
+  .filter-group {
+    display: flex;
+    flex-direction: column;
+    min-width: 150px;
+    flex: 1;
+  }
+  
+  .filter-group label {
+    font-size: 0.8rem;
+    color: var(--color-neutral-dark);
+    margin-bottom: 0.3rem;
+  }
+  
+  .filter-group select,
+  .filter-group input {
+    padding: 0.5rem;
+    border: 1px solid var(--color-border);
+    border-radius: var(--border-radius-small);
+    background-color: white;
+  }
+  
+  .transactions-table-container {
+    overflow-x: auto;
+    border-radius: var(--border-radius-small);
+    box-shadow: 0 2px 4px var(--color-shadow-light);
+    margin-bottom: 1rem;
+  }
+  
+  .transactions-table {
+    width: 100%;
+    border-collapse: collapse;
+    min-width: 800px;
+  }
+  
+  .transactions-table th {
+    background-color: var(--color-neutral-lightest);
+    color: var(--color-neutral-darker);
+    text-align: left;
+    padding: 0.8rem 1rem;
+    font-weight: 600;
+    border-bottom: 1px solid var(--color-border);
+  }
+  
+  .transactions-table td {
+    padding: 0.8rem 1rem;
+    border-bottom: 1px solid var(--color-border-light);
+    color: var(--color-neutral-darkest);
+  }
+  
+  .transactions-table tr:hover td {
+    background-color: var(--color-neutral-lightest);
+  }
+  
+  .transaction-type {
+    display: inline-block;
+    padding: 0.2rem 0.6rem;
+    border-radius: var(--border-radius-small);
+    font-size: 0.8rem;
+    font-weight: 600;
+  }
+  
+  .transaction-buy {
+    background-color: var(--color-positive-lightest);
+    color: var(--color-positive-dark);
+  }
+  
+  .transaction-sell {
+    background-color: var(--color-negative-lightest);
+    color: var(--color-negative-dark);
+  }
+  
+  .transaction-dividend {
+    background-color: var(--color-primary-lightest);
+    color: var(--color-primary-dark);
+  }
+  
+  .fees {
+    font-size: 0.8rem;
+    color: var(--color-negative);
+    display: block;
+    margin-top: 0.2rem;
+  }
+  
+  .delete-transaction-btn {
+    background: none;
+    border: none;
+    font-size: 1.2rem;
+    cursor: pointer;
+    color: var(--color-negative);
+    width: 30px;
+    height: 30px;
+    border-radius: 50%;
+    display: inline-flex;
+    align-items: center;
+    justify-content: center;
+    background-color: var(--color-negative-lightest);
+    transition: all 0.2s;
+  }
+  
+  .delete-transaction-btn:hover {
+    background-color: var(--color-negative-lighter);
+  }
+  
+  .transactions-loading,
+  .transactions-error,
+  .transactions-empty {
+    text-align: center;
+    padding: 2rem 1rem;
+    color: var(--color-neutral);
+    background-color: var(--color-background-card);
+    border-radius: var(--border-radius-small);
+    margin-bottom: 1rem;
+  }
+  
+  .transactions-error {
+    color: var(--color-negative);
+    border: 1px solid var(--color-negative-light);
+  }
+  
+  .pagination {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    gap: 1rem;
+    margin-top: 1rem;
+  }
+  
+  .pagination button {
+    padding: 0.5rem 1rem;
+    background-color: var(--color-neutral-light);
+    border: none;
+    border-radius: var(--border-radius-small);
+    color: var(--color-neutral-darkest);
+    cursor: pointer;
+    transition: background-color 0.2s;
+  }
+  
+  .pagination button:hover:not(:disabled) {
+    background-color: var(--color-primary-lightest);
+  }
+  
+  .pagination button:disabled {
+    opacity: 0.5;
+    cursor: not-allowed;
+  }
+  
+  @media (max-width: 768px) {
+    .transactions-filter {
+      flex-direction: column;
+      gap: 0.8rem;
+    }
+    
+    .filter-group {
+      width: 100%;
+    }
+  }

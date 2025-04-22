@@ -1,0 +1,149 @@
+.portfolio-holdings {
+    margin-bottom: 2rem;
+  }
+  
+  .holdings-header {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    margin-bottom: 1rem;
+  }
+  
+  .holdings-header h3 {
+    margin: 0;
+    color: var(--color-neutral-darkest);
+  }
+  
+  .add-transaction-btn {
+    background-color: var(--color-primary);
+    color: white;
+    padding: 0.5rem 1rem;
+    border: none;
+    border-radius: var(--border-radius-small);
+    font-weight: 500;
+    cursor: pointer;
+    transition: background-color 0.2s;
+  }
+  
+  .add-transaction-btn:hover {
+    background-color: var(--color-primary-dark);
+  }
+  
+  .holdings-table-container {
+    overflow-x: auto;
+    border-radius: var(--border-radius-small);
+    box-shadow: 0 2px 4px var(--color-shadow-light);
+  }
+  
+  .holdings-table {
+    width: 100%;
+    border-collapse: collapse;
+    min-width: 800px;
+  }
+  
+  .holdings-table th {
+    background-color: var(--color-neutral-lightest);
+    color: var(--color-neutral-darker);
+    text-align: left;
+    padding: 0.8rem 1rem;
+    font-weight: 600;
+    border-bottom: 1px solid var(--color-border);
+    cursor: pointer;
+    transition: background-color 0.2s;
+  }
+  
+  .holdings-table th:hover {
+    background-color: var(--color-primary-lightest);
+  }
+  
+  .holdings-table th.asc:after {
+    content: " ↑";
+  }
+  
+  .holdings-table th.desc:after {
+    content: " ↓";
+  }
+  
+  .holdings-table td {
+    padding: 0.8rem 1rem;
+    border-bottom: 1px solid var(--color-border-light);
+    color: var(--color-neutral-darkest);
+  }
+  
+  .holdings-table tr:hover td {
+    background-color: var(--color-neutral-lightest);
+  }
+  
+  .symbol-cell {
+    font-weight: 600;
+    color: var(--color-primary-dark);
+  }
+  
+  .profit-loss {
+    font-weight: 600;
+  }
+  
+  .profit-loss.positive {
+    color: var(--color-positive);
+  }
+  
+  .profit-loss.negative {
+    color: var(--color-negative);
+  }
+  
+  .actions-cell {
+    white-space: nowrap;
+  }
+  
+  .transaction-btn,
+  .delete-holding-btn {
+    background: none;
+    border: none;
+    font-size: 1.2rem;
+    cursor: pointer;
+    margin-left: 0.5rem;
+    width: 30px;
+    height: 30px;
+    border-radius: 50%;
+    display: inline-flex;
+    align-items: center;
+    justify-content: center;
+    transition: all 0.2s;
+  }
+  
+  .transaction-btn {
+    color: var(--color-primary);
+    background-color: var(--color-primary-lightest);
+  }
+  
+  .transaction-btn:hover {
+    background-color: var(--color-primary-lighter);
+  }
+  
+  .delete-holding-btn {
+    color: var(--color-negative);
+    background-color: var(--color-negative-lightest);
+  }
+  
+  .delete-holding-btn:hover {
+    background-color: var(--color-negative-lighter);
+  }
+  
+  .holdings-empty {
+    text-align: center;
+    padding: 3rem 1rem;
+    color: var(--color-neutral);
+    background-color: var(--color-background-card);
+    border-radius: var(--border-radius-small);
+    border: 1px dashed var(--color-border);
+  }
+  
+  .holdings-empty p {
+    margin-bottom: 1.5rem;
+  }
+  
+  /* Sort arrow */
+  .sort-arrow {
+    display: inline-block;
+    margin-left: 5px;
+  }

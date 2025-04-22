@@ -1,9 +1,9 @@
 // /src/pages/WatchlistDetail.jsx
 import { useState, useEffect } from 'react';
 import { useParams, useNavigate, Link, useLocation} from 'react-router-dom';
-import { useAuth } from '../context/AuthContext';
-import api from '../services/apiClient';
-import '../styles/pages/watchlist-detail.css';
+import { useAuth } from '../../context/AuthContext';
+import api from '../../services/apiClient';
+import '../../styles/pages/watchlist-detail.css';
 
 export default function WatchlistDetail() {
   const { watchlistId } = useParams();
