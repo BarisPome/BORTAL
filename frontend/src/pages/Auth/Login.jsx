@@ -34,7 +34,7 @@ function Login() {
       // Navigate to the page they tried to visit or dashboard
       navigate(from, { replace: true });
     } catch (err) {
-      setError(err.message || 'Login failed. Please check your credentials.');
+      setError(err.message || 'Failed to login');
     } finally {
       setLoading(false);
     }

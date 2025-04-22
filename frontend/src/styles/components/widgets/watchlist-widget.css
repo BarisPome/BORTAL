@@ -26,11 +26,13 @@
   font-weight: 600;
   color: var(--color-neutral-darkest);
   margin-bottom: 2px;
+  margin-right: 8px;
 }
 
 .stock-name {
   font-size: 0.85rem;
   color: var(--color-neutral-dark);
+  margin-left: 16px;
 }
 
 .stock-price {
@@ -38,12 +40,15 @@
   font-weight: 500;
   color: var(--color-neutral-darkest);
   margin-right: 16px;
+  margin-left: 16px;
+
 }
 
 .stock-change {
   font-weight: 500;
   width: 100px;
   text-align: right;
+  margin-left: 16px;
 }
 
 .stock-change.positive {
@@ -75,4 +80,84 @@
 .watchlist-manage-btn:hover {
   background-color: var(--color-neutral-lightest);
   border-color: var(--color-neutral-light);
+}
+
+.widget-header {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+}
+
+.view-all-link {
+  font-size: 0.9rem;
+  color: var(--color-primary);
+  text-decoration: none;
+}
+
+.view-all-link:hover {
+  text-decoration: underline;
+}
+
+.empty-state {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  padding: 2rem;
+  text-align: center;
+}
+
+.create-watchlist-button {
+  margin-top: 1rem;
+  padding: 0.5rem 1rem;
+  background-color: var(--color-primary);
+  color: white;
+  border: none;
+  border-radius: var(--border-radius-small);
+  cursor: pointer;
+  transition: background-color 0.2s;
+}
+
+.create-watchlist-button:hover {
+  background-color: var(--color-primary-dark);
+}
+
+.empty-watchlist-message {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  padding: 2rem;
+  text-align: center;
+}
+
+.add-stocks-link {
+  margin-top: 0.5rem;
+  color: var(--color-primary);
+  text-decoration: none;
+}
+
+.add-stocks-link:hover {
+  text-decoration: underline;
+}
+
+.watchlist-title {
+  cursor: pointer;
+  padding: 8px;
+  background-color: #f7f7f7;
+  border-bottom: 1px solid #ddd;
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+}
+
+.watchlist-block {
+  border: 1px solid #eee;
+  margin-bottom: 12px;
+  border-radius: 6px;
+}
+
+.toggle-icon {
+  font-size: 12px;
+  margin-left: 8px;
+  opacity: 0.6;
 }

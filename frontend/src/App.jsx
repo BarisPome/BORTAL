@@ -9,6 +9,7 @@ import StockDetail from './pages/Stock/StockDetail';
 import Login from './pages/Auth/Login';
 import Register from './pages/Auth/Register';
 import NotFound from './pages/NotFound';
+import WatchlistDetail from './pages/WatchlistDetail';
 
 // Layout components
 import Header from './components/layout/Header';
@@ -44,6 +45,27 @@ function App() {
                   </ProtectedRoute>
                 } 
               />
+
+              <Route
+                path="/watchlists/:id" 
+                element={
+                  <ProtectedRoute>
+                    <WatchlistDetail />
+                  </ProtectedRoute>
+                }
+              />
+
+              <Route
+                path="/watchlists" 
+                element={
+                  <ProtectedRoute>
+                    <WatchlistDetail />
+                  </ProtectedRoute>
+                }
+              />
+
+
+
               
               {/* Not found route */}
               <Route path="/404" element={<NotFound />} />

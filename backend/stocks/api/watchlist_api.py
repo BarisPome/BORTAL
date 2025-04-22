@@ -4,7 +4,6 @@ from django.shortcuts import get_object_or_404
 from rest_framework import status
 from .base_api import BaseAPIView
 from ..models import Watchlist, WatchlistItem, Stock, StockPrice
-from ..serializers.watchlist_serializers import WatchlistSerializer
 
 class WatchlistAPIView(BaseAPIView):
     """API endpoint for managing watchlists"""
@@ -14,9 +13,8 @@ class WatchlistAPIView(BaseAPIView):
     def get(self, request):
         """Get all watchlists for the current user"""
         watchlists = Watchlist.objects.filter(user=request.user)
-        
-        # Prepare response data manually for custom formatting
         data = []
+
         for watchlist in watchlists:
             watchlist_data = {
                 'id': watchlist.id,
@@ -26,14 +24,17 @@ class WatchlistAPIView(BaseAPIView):
                 'created_at': watchlist.created_at,
                 'stocks': []
             }
-            
-            # Get all stock items with their latest prices
-            items = WatchlistItem.objects.filter(watchlist=watchlist).select_related('stock')
-            
+
+            items = WatchlistItem.objects.filter(
+                watchlist=watchlist
+            ).select_related('stock')
+
             for item in items:
                 stock = item.stock
-                latest_price = StockPrice.objects.filter(stock=stock).order_by('-date').first()
-                
+                latest_price = StockPrice.objects.filter(
+                    stock=stock
+                ).order_by('-date').first()
+
                 stock_data = {
                     'id': stock.id,
                     'symbol': stock.symbol,
@@ -41,31 +42,34 @@ class WatchlistAPIView(BaseAPIView):
                     'notes': item.notes,
                     'added_at': item.added_at,
                 }
-                
+
                 if latest_price:
+                    # Convert Decimal to float for JSON
+                    latest_close = float(latest_price.close)
                     stock_data['latest_price'] = {
                         'date': latest_price.date,
-                        'price': float(latest_price.close),
+                        'price': latest_close,
                         'change': None,
                         'change_percent': None
                     }
-                    
-                    # Get previous day's price for change calculation
+
                     prev_price = StockPrice.objects.filter(
-                        stock=stock, 
+                        stock=stock,
                         date__lt=latest_price.date
                     ).order_by('-date').first()
-                    
+
                     if prev_price:
-                        change = float(latest_price.close - prev_price.close)
-                        change_percent = float(change / prev_price.close * 100)
+                        prev_close = float(prev_price.close)
+                        change = latest_close - prev_close
+                        change_percent = (change / prev_close) * 100
+
                         stock_data['latest_price']['change'] = change
                         stock_data['latest_price']['change_percent'] = change_percent
-                
+
                 watchlist_data['stocks'].append(stock_data)
-            
+
             data.append(watchlist_data)
-        
+
         return self.success_response(data)
     
     def post(self, request):
@@ -74,26 +78,28 @@ class WatchlistAPIView(BaseAPIView):
         description = request.data.get('description', '')
         
         if not name:
-            return self.error_response("Watchlist name is required")
-        
-        # Check if a watchlist with this name already exists
-        if Watchlist.objects.filter(user=request.user, name=name).exists():
+            return self.error_response(
+                "Watchlist name is required"
+            )
+
+        if Watchlist.objects.filter(
+            user=request.user,
+            name=name
+        ).exists():
             return self.error_response(
                 "A watchlist with this name already exists",
                 status=status.HTTP_409_CONFLICT
             )
-        
-        # Create the watchlist
+
         watchlist = Watchlist.objects.create(
             user=request.user,
             name=name,
             description=description
         )
-        
-        # Add initial stocks if provided
+
         stock_symbols = request.data.get('stocks', [])
         added_stocks = []
-        
+
         for symbol in stock_symbols:
             try:
                 stock = Stock.objects.get(symbol=symbol)
@@ -103,8 +109,8 @@ class WatchlistAPIView(BaseAPIView):
                 )
                 added_stocks.append(symbol)
             except Stock.DoesNotExist:
-                pass  # Skip non-existent stocks
-        
+                continue
+
         return self.success_response(
             {
                 'id': watchlist.id,
@@ -118,29 +124,31 @@ class WatchlistAPIView(BaseAPIView):
     
     def put(self, request, watchlist_id):
         """Update an existing watchlist"""
-        watchlist = get_object_or_404(Watchlist, id=watchlist_id, user=request.user)
-        
-        # Update fields if provided
+        watchlist = get_object_or_404(
+            Watchlist,
+            id=watchlist_id,
+            user=request.user
+        )
+
         if 'name' in request.data:
             watchlist.name = request.data['name']
-        
         if 'description' in request.data:
             watchlist.description = request.data['description']
-        
-        if 'is_default' in request.data and request.data['is_default']:
-            # If setting as default, unset any other default watchlist
-            Watchlist.objects.filter(user=request.user, is_default=True).update(is_default=False)
+        if request.data.get('is_default'):
+            Watchlist.objects.filter(
+                user=request.user,
+                is_default=True
+            ).update(is_default=False)
             watchlist.is_default = True
-        
+
         watchlist.save()
-        
-        # Update stocks if provided
+
         if 'stocks' in request.data:
-            # Clear existing items if replace_all is set
-            if request.data.get('replace_all', False):
-                WatchlistItem.objects.filter(watchlist=watchlist).delete()
-            
-            # Add new stocks
+            if request.data.get('replace_all'):
+                WatchlistItem.objects.filter(
+                    watchlist=watchlist
+                ).delete()
+
             added_stocks = []
             for symbol in request.data['stocks']:
                 try:
@@ -151,8 +159,8 @@ class WatchlistAPIView(BaseAPIView):
                     )
                     added_stocks.append(symbol)
                 except Stock.DoesNotExist:
-                    pass  # Skip non-existent stocks
-        
+                    continue
+
             return self.success_response(
                 {
                     'id': watchlist.id,
@@ -161,7 +169,7 @@ class WatchlistAPIView(BaseAPIView):
                 },
                 message="Watchlist updated successfully"
             )
-        
+
         return self.success_response(
             {
                 'id': watchlist.id,
@@ -172,21 +180,19 @@ class WatchlistAPIView(BaseAPIView):
     
     def delete(self, request, watchlist_id):
         """Delete a watchlist"""
-        watchlist = get_object_or_404(Watchlist, id=watchlist_id, user=request.user)
-        
-        # Don't allow deleting the default watchlist if it's the only one
-        if watchlist.is_default and Watchlist.objects.filter(user=request.user).count() == 1:
-            return self.error_response(
-                "Cannot delete the only watchlist. Create another watchlist first.",
-                status=status.HTTP_400_BAD_REQUEST
-            )
-        
-        watchlist_name = watchlist.name
-        watchlist.delete()
-        
-        return self.success_response(
-            message=f"Watchlist '{watchlist_name}' deleted successfully"
+        watchlist = get_object_or_404(
+            Watchlist,
+            id=watchlist_id,
+            user=request.user
         )
+
+        name = watchlist.name
+        watchlist.delete()
+
+        return self.success_response(
+            message=f"Watchlist '{name}' deleted successfully"
+        )
+
 
 
 class WatchlistItemAPIView(BaseAPIView):
@@ -195,12 +201,18 @@ class WatchlistItemAPIView(BaseAPIView):
     
     def post(self, request, watchlist_id):
         """Add a stock to a watchlist"""
-        watchlist = get_object_or_404(Watchlist, id=watchlist_id, user=request.user)
-        
+        watchlist = get_object_or_404(
+            Watchlist,
+            id=watchlist_id,
+            user=request.user
+        )
+
         symbol = request.data.get('symbol')
         if not symbol:
-            return self.error_response("Stock symbol is required")
-        
+            return self.error_response(
+                "Stock symbol is required"
+            )
+
         try:
             stock = Stock.objects.get(symbol=symbol)
         except Stock.DoesNotExist:
@@ -208,21 +220,22 @@ class WatchlistItemAPIView(BaseAPIView):
                 f"Stock with symbol '{symbol}' not found",
                 status=status.HTTP_404_NOT_FOUND
             )
-        
-        # Check if already in watchlist
-        if WatchlistItem.objects.filter(watchlist=watchlist, stock=stock).exists():
+
+        if WatchlistItem.objects.filter(
+            watchlist=watchlist,
+            stock=stock
+        ).exists():
             return self.error_response(
                 f"Stock '{symbol}' is already in this watchlist",
                 status=status.HTTP_409_CONFLICT
             )
-        
-        # Add to watchlist
+
         item = WatchlistItem.objects.create(
             watchlist=watchlist,
             stock=stock,
             notes=request.data.get('notes', '')
         )
-        
+
         return self.success_response(
             {
                 'watchlist_id': watchlist.id,
@@ -236,8 +249,12 @@ class WatchlistItemAPIView(BaseAPIView):
     
     def delete(self, request, watchlist_id, symbol):
         """Remove a stock from a watchlist"""
-        watchlist = get_object_or_404(Watchlist, id=watchlist_id, user=request.user)
-        
+        watchlist = get_object_or_404(
+            Watchlist,
+            id=watchlist_id,
+            user=request.user
+        )
+
         try:
             stock = Stock.objects.get(symbol=symbol)
         except Stock.DoesNotExist:
@@ -245,24 +262,29 @@ class WatchlistItemAPIView(BaseAPIView):
                 f"Stock with symbol '{symbol}' not found",
                 status=status.HTTP_404_NOT_FOUND
             )
-        
-        # Try to delete the item
-        deleted, _ = WatchlistItem.objects.filter(watchlist=watchlist, stock=stock).delete()
-        
+
+        deleted, _ = WatchlistItem.objects.filter(
+            watchlist=watchlist,
+            stock=stock
+        ).delete()
+
         if deleted:
             return self.success_response(
                 message=f"Removed {symbol} from watchlist"
             )
-        else:
-            return self.error_response(
-                f"Stock '{symbol}' is not in this watchlist",
-                status=status.HTTP_404_NOT_FOUND
-            )
+        return self.error_response(
+            f"Stock '{symbol}' is not in this watchlist",
+            status=status.HTTP_404_NOT_FOUND
+        )
     
     def patch(self, request, watchlist_id, symbol):
         """Update notes for a stock in a watchlist"""
-        watchlist = get_object_or_404(Watchlist, id=watchlist_id, user=request.user)
-        
+        watchlist = get_object_or_404(
+            Watchlist,
+            id=watchlist_id,
+            user=request.user
+        )
+
         try:
             stock = Stock.objects.get(symbol=symbol)
         except Stock.DoesNotExist:
@@ -270,19 +292,21 @@ class WatchlistItemAPIView(BaseAPIView):
                 f"Stock with symbol '{symbol}' not found",
                 status=status.HTTP_404_NOT_FOUND
             )
-        
+
         try:
-            item = WatchlistItem.objects.get(watchlist=watchlist, stock=stock)
+            item = WatchlistItem.objects.get(
+                watchlist=watchlist,
+                stock=stock
+            )
         except WatchlistItem.DoesNotExist:
             return self.error_response(
                 f"Stock '{symbol}' is not in this watchlist",
                 status=status.HTTP_404_NOT_FOUND
             )
-        
-        # Update notes
+
         item.notes = request.data.get('notes', '')
         item.save()
-        
+
         return self.success_response(
             {
                 'watchlist_id': watchlist.id,
